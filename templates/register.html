@@ -2,79 +2,54 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Регистрация — Мессенджер</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация — SYNAPSE</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #050806; --surface: rgba(20, 28, 24, 0.8); --border: rgba(255, 255, 255, 0.08);
-    --accent: #10b981; --accent2: #059669; --text: #ffffff; --muted: #8ea095;
-  }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; color: var(--text); }
-  .bg-blobs { position: fixed; inset: 0; z-index: -1; filter: blur(100px); }
-  .blob { position: absolute; border-radius: 50%; opacity: 0.3; animation: move 20s infinite alternate; }
-  .b1 { width: 400px; height: 400px; background: var(--accent); top: -10%; right: -10%; }
-  .b2 { width: 350px; height: 350px; background: #3b82f6; bottom: -10%; left: -5%; }
-  @keyframes move { from { transform: translate(0,0); } to { transform: translate(-50px, 50px); } }
+  /* Тот же потрясающий стиль, но с другим акцентным цветом */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+  body { background: #050505; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+  .bg-orbs { position: absolute; inset: 0; z-index: 0; filter: blur(120px); pointer-events: none; }
+  .orb { position: absolute; border-radius: 50%; opacity: 0.5; animation: float 15s infinite alternate ease-in-out; }
+  .orb-1 { width: 50vw; height: 50vw; background: #00F2FE; top: -10%; left: -10%; }
+  .orb-2 { width: 40vw; height: 40vw; background: #4FACFE; bottom: -20%; right: -10%; }
+  @keyframes float { 100% { transform: translate(100px, 50px) scale(1.1); } }
 
-  .card {
-    background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border);
-    width: 100%; max-width: 400px; padding: 40px; border-radius: 32px;
-    animation: slideUp 0.8s forwards;
-  }
-  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .glass-card { position: relative; z-index: 1; background: rgba(15, 15, 15, 0.6); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.08); width: 100%; max-width: 420px; padding: 48px; border-radius: 32px; box-shadow: 0 30px 60px rgba(0,0,0,0.4); animation: slideUp 0.6s ease-out; }
+  @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
-  .logo-box { font-size: 40px; margin-bottom: 15px; }
-  h2 { font-family: 'Syne', sans-serif; font-size: 32px; margin-bottom: 8px; }
-  .subtitle { color: var(--muted); margin-bottom: 30px; font-size: 15px; }
-  .input-group { text-align: left; margin-bottom: 20px; }
-  .input-group label { display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
-  .input-group input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 16px; border-radius: 16px; color: #fff; font-size: 16px; transition: 0.3s; }
-  .input-group input:focus { border-color: var(--accent); outline: none; }
-  button { width: 100%; padding: 18px; border-radius: 16px; border: none; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); transition: 0.3s; }
-  button:hover { transform: translateY(-2px); }
-  .links { margin-top: 25px; color: var(--muted); font-size: 14px; }
-  .links a { color: var(--accent); text-decoration: none; font-weight: 600; }
-  .alert { background: rgba(255, 68, 68, 0.15); border: 1px solid rgba(255, 68, 68, 0.5); color: #ff6b6b; padding: 14px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; }
+  .logo { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #00F2FE, #4FACFE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; text-align: center; }
+  .subtitle { text-align: center; color: #888; font-size: 15px; margin-bottom: 32px; }
+
+  .input-group { margin-bottom: 16px; }
+  .input-group input { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 16px 20px; border-radius: 16px; color: #fff; font-size: 15px; transition: all 0.3s; outline: none; }
+  .input-group input:focus { border-color: #00F2FE; box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+
+  .btn-submit { width: 100%; padding: 16px; margin-top: 10px; border-radius: 16px; border: none; background: linear-gradient(135deg, #00F2FE, #4FACFE); color: #fff; font-weight: 600; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3); }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(0, 242, 254, 0.4); }
+
+  .links { display: flex; justify-content: center; margin-top: 24px; font-size: 14px; }
+  .links a { color: #aaa; text-decoration: none; transition: 0.2s; }
+  .links a:hover { color: #00F2FE; }
+
+  .alert { background: rgba(255, 50, 50, 0.1); border: 1px solid rgba(255, 50, 50, 0.3); color: #ff5555; padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: center; font-size: 14px; }
 </style>
 </head>
 <body>
-
-<div class="bg-blobs"><div class="blob b1"></div><div class="blob b2"></div></div>
-
-<div class="card">
-  <div class="logo-box">🚀</div>
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for m in messages %}<div class="alert">{{ m }}</div>{% endfor %}
-    {% endif %}
-  {% endwith %}
-
-  <h2>Регистрация</h2>
-  <p class="subtitle">Создайте новый профиль</p>
-
-  <form method="POST">
-    <div class="input-group">
-      <label>Логин</label>
-      <input type="text" name="username" placeholder="Никнейм" required>
+  <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+  <div class="glass-card">
+    <div class="logo">РЕГИСТРАЦИЯ</div>
+    <div class="subtitle">Инициализация нового пользователя</div>
+    {% with messages = get_flashed_messages() %}{% if messages %}<div class="alert">{{ messages[0] }}</div>{% endif %}{% endwith %}
+    <form method="POST">
+      <div class="input-group"><input type="text" name="username" placeholder="Придумайте юзернейм" required></div>
+      <div class="input-group"><input type="text" name="secret_word" placeholder="Секретное слово (для сброса пароля)" required></div>
+      <div class="input-group"><input type="password" name="password" placeholder="Пароль" required></div>
+      <button type="submit" class="btn-submit">Активировать</button>
+    </form>
+    <div class="links">
+      <a href="/login">Уже в системе? Войти</a>
     </div>
-    <div class="input-group">
-      <label>Секретное слово</label>
-      <input type="text" name="secret_word" placeholder="Для сброса пароля" required>
-    </div>
-    <div class="input-group">
-      <label>Пароль</label>
-      <input type="password" name="password" placeholder="Минимум 4 символа" required>
-    </div>
-    <button type="submit">Создать аккаунт</button>
-  </form>
-
-  <div class="links">
-    Уже есть аккаунт? <a href="/login">Войти в систему</a>
   </div>
-</div>
-
 </body>
 </html>
